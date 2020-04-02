@@ -301,7 +301,6 @@ cpart_semshield::ReadPropertiesWindow(void)
 void
 cpart_semshield::PreProcess(void)
 {
-
  memset (alm, 0, 16 * sizeof (unsigned int));
 
  JUMPSTEPS_ = Window1.GetJUMPSTEPS ();
@@ -322,7 +321,7 @@ cpart_semshield::Process(void)
    {
      for (int i = 0; i < 16; i++)
      {
-       if (_ret & (1 << i))
+       if (ret & (1 << i))
        {
          alm[i]++;
        }
