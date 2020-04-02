@@ -16,7 +16,7 @@ sharedir= ${prefix}/share/picsimlab/
 
 FLAGS = -D_VERSION_=\"$(VERSION)\" -D_SHARE_=\"${sharedir}\" -Wall -O2 -DLINUX `lxrad-config --cxxflags`
 
-LIBS = `lxrad-config --libs`  
+LIBS = `lxrad-config --libs` -lopenal  
 
 OBJS = pespmsim.o espmsim1.o espmsim2.o serial.o tcp.o
 

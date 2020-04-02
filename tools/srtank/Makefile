@@ -16,7 +16,7 @@ sharedir= ${prefix}/share/picsimlab/
 
 FLAGS =  -D_VERSION_=\"$(VERSION)\" -D_SHARE_=\"${sharedir}\"  -Wall -O2 `lxrad-config --cxxflags`
 
-LIBS = `lxrad-config --libs`  
+LIBS = `lxrad-config --libs` -lopenal
 
 OBJS = psrtank.o srtank1.o srtank2.o  serial.o
 

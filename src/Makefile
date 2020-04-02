@@ -19,7 +19,7 @@ override CFLAGS += -D_VERSION_=\"$(VERSION)\" -Wall -O2 -D_SHARE_=\"${sharedir}\
 #override CFLAGS+=-fsanitize=address
 #override CFLAGS+= -D_EXPERIMENTAL_
 
-LIBS = `lxrad-config --libs` -lpicsim -lsimavr -lelf
+LIBS = `lxrad-config --libs` -lpicsim -lsimavr -lelf -lopenal
 #LIBS=  ../../picsim/src/libpicsim_dbg.a ../../LXRAD_WX/libteste/liblxrad.a  ../../simavr/simavr/obj-x86_64-linux-gnu/libsimavr.a\
       -lopenal `wx-config --libs` `wx-config --libs stc` 
 
