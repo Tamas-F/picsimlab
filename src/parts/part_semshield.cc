@@ -38,12 +38,6 @@ enum
  O_RST, O_SCLK, O_LCLK, O_SER
 };
 
-// enum
-// {
-//  O_P1, O_P2, O_P3, O_P4, O_P5, O_P6, O_P7, O_P8, O_P9, O_P10, O_P11, O_P12,
-//  O_P13, O_P14, O_P15, O_P16, O_IC
-// };
-
 const char pin_names[7][10] = {
  "GND",
  "/RST",
@@ -88,27 +82,13 @@ cpart_semshield::cpart_semshield(unsigned x, unsigned y)
  input_pins[2] = 0;
  input_pins[3] = 0;
 
-//  output_pins[0] = Window5.RegisterIOpin (lxT ("QA"));
-//  output_pins[1] = Window5.RegisterIOpin (lxT ("QB"));
-//  output_pins[2] = Window5.RegisterIOpin (lxT ("QC"));
-//  output_pins[3] = Window5.RegisterIOpin (lxT ("QD"));
-//  output_pins[4] = Window5.RegisterIOpin (lxT ("QE"));
-//  output_pins[5] = Window5.RegisterIOpin (lxT ("QF"));
-//  output_pins[6] = Window5.RegisterIOpin (lxT ("QG"));
-//  output_pins[7] = Window5.RegisterIOpin (lxT ("QH"));
-//  output_pins[8] = Window5.RegisterIOpin (lxT ("SOUT"));
-
- //mcount = 0;
  memset (lm, 0, 16 * sizeof (unsigned int));
  memset (alm, 0, 16 * sizeof (unsigned int));
- //memset (output_pins_alm, 0, 9 * sizeof (unsigned long));
 
 }
 
 cpart_semshield::~cpart_semshield(void)
 {
- //for (int i = 0; i < 9; i++)
-  //Window5.UnregisterIOpin (output_pins[i]);
  delete Bitmap;
  canvas.Destroy ();
 }
@@ -174,10 +154,8 @@ cpart_semshield::Draw(void)
      
      if (input_pins[output[i].id - O_RST] == 0)
        txt += "NC";
-      //canvas.RotatedText ("NC", output[i].x1, output[i].y2, 90.0);
      else
        txt += Window5.GetPinName (input_pins[output[i].id - O_RST]);
-      //canvas.RotatedText (Window5.GetPinName (input_pins[output[i].id - O_P1]), output[i].x1, output[i].y2, 90.0);
       canvas.RotatedText (txt, output[i].x1, output[i].y2, 90.0);
     }
  }
@@ -238,25 +216,6 @@ cpart_semshield::ReadPreferences(String value)
 {
  unsigned char outp;
  sscanf (value.c_str (), "%hhu,%hhu,%hhu,%hhu", &input_pins[0], &input_pins[1], &input_pins[2], &input_pins[3]);
-
-//  if (output_pins[0] != outp)
-//   {
-
-//    for (int i = 0; i < 9; i++)
-//     Window5.UnregisterIOpin (output_pins[i]);
-
-//    output_pins[0] = Window5.RegisterIOpin (lxT ("QA"), outp++);
-//    output_pins[1] = Window5.RegisterIOpin (lxT ("QB"), outp++);
-//    output_pins[2] = Window5.RegisterIOpin (lxT ("QC"), outp++);
-//    output_pins[3] = Window5.RegisterIOpin (lxT ("QD"), outp++);
-//    output_pins[4] = Window5.RegisterIOpin (lxT ("QE"), outp++);
-//    output_pins[5] = Window5.RegisterIOpin (lxT ("QF"), outp++);
-//    output_pins[6] = Window5.RegisterIOpin (lxT ("QG"), outp++);
-//    output_pins[7] = Window5.RegisterIOpin (lxT ("QH"), outp++);
-//    output_pins[8] = Window5.RegisterIOpin (lxT ("SOUT"), outp++);
-//   }
-
-
  Reset ();
 }
 
@@ -278,14 +237,6 @@ cpart_semshield::ConfigurePropertiesWindow(CPWindow * wprop)
     {
      value = lxT ("          ") + String (pin_values[i]);
     }
-  //  else if (pinv >= 4)
-  //   {
-  //    if (output_pins[pinv - 4] == 0)
-  //     value = "          NC";
-  //    else
-  //     value = lxT ("          ") + itoa (output_pins[pinv - 4]); // + lxT (" ") + Window5.GetPinName (output_pins[pinv - 4]);
-  //   }
-
 
    ((CLabel*) WProp_semshield->GetChildByName ("label" + itoa (i + 1)))->SetText (itoa (i + 1) + lxT ("-") + pin_names[i] + value);
   }
@@ -365,25 +316,6 @@ cpart_semshield::Process(void)
  unsigned int ret;
 
  ret = io_74xx595_double_io (&sr8, ppins[input_pins[3] - 1].value, ppins[input_pins[1] - 1].value, ppins[input_pins[2] - 1].value, ppins[input_pins[0] - 1].value);
-
-//  if (_ret != ret)
-//   {
-//    Window5.WritePin (output_pins[0], (ret & 0x01) != 0);
-//    Window5.WritePin (output_pins[1], (ret & 0x02) != 0);
-//    Window5.WritePin (output_pins[2], (ret & 0x04) != 0);
-//    Window5.WritePin (output_pins[3], (ret & 0x08) != 0);
-//    Window5.WritePin (output_pins[4], (ret & 0x10) != 0);
-//    Window5.WritePin (output_pins[5], (ret & 0x20) != 0);
-//    Window5.WritePin (output_pins[6], (ret & 0x40) != 0);
-//    Window5.WritePin (output_pins[7], (ret & 0x80) != 0);
-//    Window5.WritePin (output_pins[8], (ret & 0x100) != 0);
-//   }
- _ret = ret;
-//  for (int i = 15; i >= 0; i--)
-//  {
-//    printf("%d", (1 << i) & ret ? 1 : 0);
-//  }
-//  printf("\n");
  
  mcount++;
   if (mcount >= JUMPSTEPS_)
@@ -395,17 +327,6 @@ cpart_semshield::Process(void)
          alm[i]++;
        }
      }
-     
-//    if (ppins[output_pins[0]].value)output_pins_alm[0]++;
-//    if (ppins[output_pins[1]].value)output_pins_alm[1]++;
-//    if (ppins[output_pins[2]].value)output_pins_alm[2]++;
-//    if (ppins[output_pins[3]].value)output_pins_alm[3]++;
-//    if (ppins[output_pins[4]].value)output_pins_alm[4]++;
-//    if (ppins[output_pins[5]].value)output_pins_alm[5]++;
-//    if (ppins[output_pins[6]].value)output_pins_alm[6]++;
-//    if (ppins[output_pins[7]].value)output_pins_alm[7]++;
-
-//    if (ppins[output_pins[8]].value)output_pins_alm[8]++;
 
     mcount = -1;
    }
@@ -417,21 +338,9 @@ void
 cpart_semshield::PostProcess(void)
 {
  long int NSTEPJ = Window1.GetNSTEPJ ();
-//  const picpin * ppins = Window5.GetPinsValues ();
  for (size_t i = 0; i < 16; i++)
  {
     lm[i] = (int) ((255.0 * alm[i]) / NSTEPJ);
     if (lm[i] > 255)lm[i] = 255;
  }
- 
-//  Window5.WritePinA (output_pins[0], (ppins[output_pins[0] - 1].oavalue + ((output_pins_alm[0]*255.0) / NSTEPJ)) / 2);
-//  Window5.WritePinA (output_pins[1], (ppins[output_pins[1] - 1].oavalue + ((output_pins_alm[1]*255.0) / NSTEPJ)) / 2);
-//  Window5.WritePinA (output_pins[2], (ppins[output_pins[2] - 1].oavalue + ((output_pins_alm[2]*255.0) / NSTEPJ)) / 2);
-//  Window5.WritePinA (output_pins[3], (ppins[output_pins[3] - 1].oavalue + ((output_pins_alm[3]*255.0) / NSTEPJ)) / 2);
-//  Window5.WritePinA (output_pins[4], (ppins[output_pins[4] - 1].oavalue + ((output_pins_alm[4]*255.0) / NSTEPJ)) / 2);
-//  Window5.WritePinA (output_pins[5], (ppins[output_pins[5] - 1].oavalue + ((output_pins_alm[5]*255.0) / NSTEPJ)) / 2);
-//  Window5.WritePinA (output_pins[6], (ppins[output_pins[6] - 1].oavalue + ((output_pins_alm[6]*255.0) / NSTEPJ)) / 2);
-//  Window5.WritePinA (output_pins[7], (ppins[output_pins[7] - 1].oavalue + ((output_pins_alm[7]*255.0) / NSTEPJ)) / 2);
-//  Window5.WritePinA (output_pins[8], (ppins[output_pins[8] - 1].oavalue + ((output_pins_alm[8]*255.0) / NSTEPJ)) / 2);
-
 }
