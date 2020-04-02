@@ -23,18 +23,64 @@
    For e-mail suggestions :  lcgamboa@yahoo.com
    ######################################################################## */
 
-#ifndef PARTS_DEFS_H
-#define	PARTS_DEFS_H
 
-#include"part.h" 
+#include"io_74xx595_double.h"
+#include<stdio.h>
 
-#define MAX_PARTS 100
+void
+io_74xx595_double_rst(io_74xx595_double_t *sr)
+{
+ sr->asclk = 1;
+ sr->alclk = 1;
+ sr->dsr = 0;
+ sr->sout = 0;
+}
 
-#define NUM_PARTS 25
+void
+io_74xx595_double_init(io_74xx595_double_t *sr)
+{
+ sr->asclk = 1;
+ sr->alclk = 1;
+ sr->sout = 0;
+ sr->out = 0;
+ sr->dsr = 0;
+}
 
-extern const char parts_list[NUM_PARTS][30];
+unsigned int
+io_74xx595_double_io(io_74xx595_double_t *sr, unsigned char A, unsigned char sclk, unsigned char lclk, unsigned char rst)
+{
 
-part * create_part(String name, unsigned int x, unsigned int y);
+ if (!rst)
+  {
+   sr->dsr = 0;
+   sr->sout = 0;
+  }
 
-#endif	/* PARTS_DEFS_H */
 
+ //transicao
+ if ((sr->asclk == 0)&&(sclk == 1))//rising edge
+  {
+     //printf("clk");
+   if (A)
+    {
+     sr->dsr = (sr->dsr << 1) | 1;
+    }
+   else
+    {
+     sr->dsr = (sr->dsr << 1) & 0xFFFE;
+    }
+   //printf("clk, data=%lu\n", sr->dsr);
+  }
+ sr->asclk = sclk;
+
+ //transicao
+ if ((sr->alclk == 0)&&(lclk == 1))//rising edge
+  {
+   sr->out = sr->dsr;
+   //printf("latch clk, out=%lu\n", sr->dsr);
+  }
+ sr->alclk = lclk;
+
+
+ return (sr->dsr & 0x010000)| sr->out ;
+}

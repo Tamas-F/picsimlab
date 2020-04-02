@@ -1,0 +1,29 @@
+<img src="picsimlab2.png" width="476" height="191" border="0" usemap="#map" />
+
+<map name="map">
+<!-- #$-:Image map file created by GIMP Image Map plug-in -->
+<!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
+<!-- #$-:Please do not edit lines starting with "#$" -->
+<!-- #$VERSION:2.3 -->
+<!-- #$AUTHOR:lcganmboa@yahoo.com               -->
+<area shape="rect" coords="7,133,26,250" href="RST" />
+<area shape="rect" coords="37,133,55,250" href="SCLK" />
+<area shape="rect" coords="67,133,84,250" href="LCLK" />
+<area shape="rect" coords="97,133,114,250" href="SER" />
+<area shape="rect" coords="74,72,94,75" href="A1" />
+<area shape="rect" coords="95,77,98,91" href="B1" />
+<area shape="rect" coords="95,96,98,112" href="C1" />
+<area shape="rect" coords="74,113,94,116" href="D1" />
+<area shape="rect" coords="70,97,73,112" href="E1" />
+<area shape="rect" coords="70,76,73,91" href="F1" />
+<area shape="rect" coords="74,92,94,95" href="G1" />
+<area shape="rect" coords="103,119,106,122" href="DP1" />
+<area shape="rect" coords="125,72,145,75" href="A2" />
+<area shape="rect" coords="146,76,149,91" href="B2" />
+<area shape="rect" coords="146,96,149,112" href="C2" />
+<area shape="rect" coords="125,113,145,116" href="D2" />
+<area shape="rect" coords="121,96,124,111" href="E2" />
+<area shape="rect" coords="121,76,124,91" href="F2" />
+<area shape="rect" coords="125,92,145,95" href="G2" />
+<area shape="rect" coords="151,119,154,122" href="DP2" />
+</map>
