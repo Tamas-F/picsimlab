@@ -321,7 +321,7 @@ cpart_semshield::Process(void)
    {
      for (int i = 0; i < 16; i++)
      {
-       if (ret & (1 << i))
+       if (!(ret & (1 << i)))
        {
          alm[i]++;
        }
