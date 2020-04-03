@@ -36,7 +36,7 @@ https://github.com/lcgamboa/picsimlab/releases
 In Debian Linux and derivatives:
 
 ```
-git clone https://github.com/lcgamboa/picsimlab.git
+git clone https://github.com/Tamas-F/picsimlab.git
 cd picsimlab
 ./picsimlab_build_all_and_deps.sh
 ```
